@@ -41,9 +41,10 @@ class WineController extends Controller
     public function store(WineRequest $request)
     {
         $form_data = $request->all();
+        // dd($form_data);
 
 
-        $exist = Wine::where('name', $form_data['name'])->first();
+        $exist = Wine::where('wine', $form_data['wine'])->first();
 
         if ($exist) {
             return redirect()->route('admin.wines.create')->with('error', 'Nome vino già esistente');
@@ -54,7 +55,9 @@ class WineController extends Controller
             $new_wine->fill($form_data);
 
             $new_wine->save();
-
+            if (array_key_exists('flavors', $form_data)) {
+                $new_wine->flavors()->sync($form_data['flavors']);
+            }
             return redirect()->route('admin.wines.show', $new_wine);
         }
     }
@@ -72,11 +75,12 @@ class WineController extends Controller
      */
     public function edit(Wine $wine)
     {
+        $flavors = Flavor::all();
         $title = 'Aggiorna vino';
         $route =  route('admin.wines.update', $wine);
         $method = 'PUT';
         $button = 'Aggiorna';
-        return view('admin.wines.create-edit', compact('route', 'method', 'wine', 'title', 'button'));
+        return view('admin.wines.create-edit', compact('route', 'method', 'wine', 'title', 'button', 'flavors'));
     }
 
     /**
@@ -93,6 +97,12 @@ class WineController extends Controller
         }
 
         $wine->update($form_data);
+        if (array_key_exists('flavors', $form_data)) {
+            $wine->flavors()->sync($form_data['flavors']);
+        } else {
+            $wine->flavors()->detach();
+        }
+        // preghiamo
 
         return redirect()->route('admin.wines.show', $wine);
     }

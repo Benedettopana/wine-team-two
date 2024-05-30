@@ -9,7 +9,8 @@ class Flavor extends Model
 {
     use HasFactory;
 
-    public function wines(){
+    public function wines()
+    {
         return $this->belongsToMany(Wine::class);
     }
 }

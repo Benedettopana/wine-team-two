@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Functions\Helper as Help;
+use App\Models\Flavor;
 use App\Models\Wine;
 
 class WineTableSeeder extends Seeder
@@ -23,8 +24,9 @@ class WineTableSeeder extends Seeder
             $new_wine->rating_reviews = $item->rating->reviews;
             $new_wine->location = $item->location;
             $new_wine->image = $item->image;
+            // $new_wine->flavor_id = Flavor::inRandomOrder()->first()->id;
+
             $new_wine->save();
         }
     }
-
 }

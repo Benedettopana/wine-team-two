@@ -14,12 +14,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
-                FlavorTableSeeder::class,
                 WineTableSeeder::class,
+                FlavorTableSeeder::class,
                 FlavorWineSeeder::class,
 
 
             ]
         );
+        // $this->call([FlavorWineSeeder::class]);
     }
 }

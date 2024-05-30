@@ -1,0 +1,14 @@
+main{
+    padding-top: 10px ;
+    a{
+        background-color: rgb(255, 203, 59);
+        padding: 7px;
+        border-radius: 5px;
+        text-decoration: none;
+        color:black;
+        &:hover{
+            background-color: #f7a714;
+            transition: all .5s ease;
+        }
+    }
+}

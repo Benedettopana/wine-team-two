@@ -16,6 +16,11 @@ class Wine extends Model
         'rating_average',
         'rating_reviews',
         'location',
-        'image'
+        'image',
+        'flavor_id'
     ];
+
+    public function flavors(){
+        return $this->belongsToMany(Flavor::class);
+    }
 }
